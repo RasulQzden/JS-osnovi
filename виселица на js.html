@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>«Виселица игра на js»</title>
+</head>
+<body>
+<!--
+    Прежде чем перейти к созданию игры «Виселица», давайте подумаем
+    о ее структуре. Нам нужно, чтобы программа умела выполнять следующие действия:
+    1. Случайным образом выбирать слово.
+    2. Запрашивать у игрока вариант ответа (букву).
+    3. Завершать игру по желанию игрока.
+    4. Проверять, является ли введенный ответ буквой.
+    5. Вести учет угаданных букв.
+    6. Показывать игроку, сколько букв он угадал и сколько еще предстоит угадать.
+    7. Завершать игру, если слово отгадано.
+-->
+    
+<script>
+    // Создаем слова для нашей игры
+    let words = [
+      "javascript",
+      "monkey",
+      "jango",
+      "amazing",
+      "pancake",
+      "react",
+      "bootstrap"
+    ];
+
+    // случайным образом выбираем одно слово
+    let word = words[Math.floor(Math.random() * words.length)];
+
+    // Массив с символами подчеркивания, для отображения
+    let answerArray = [];
+    for (let i = 0; i < word.length; i++) {
+      answerArray[i] = "_";
+    }
+
+    let remainingLetters = word.length;
+    let guesses = 20; // 
+
+    while (remainingLetters > 0 && guesses > 0) {
+      // состояние игры
+      alert(answerArray.join(" ")); 
+      let guess = prompt("Отгадайте букву или нажмите отмена чтобы выйти из игры.");
+      if (guess === null) {
+        // если нажал отмену выходим из игры
+        break;
+      } else if (guess.length !== 1) {
+        alert("Введите одну букву.");
+      } else {
+        guesses--;
+        guess = guess.toLowerCase();
+        // обновляем
+        for (let j = 0; j < word.length; j++) {
+          if (word[j] === guess && answerArray[j] === "_") {
+            answerArray[j] = guess;
+            remainingLetters--;
+          }
+        }
+      }
+    }
+
+    // выводим итог
+    alert(answerArray.join(" "));
+    if (guesses > 0) {
+      alert("Отлично, вы отгадали слово " + word);
+    } else {
+      alert("Плохо, это было слово " + word);
+    }    
+   
+    </script>
+
+</body>
+</html>
+
+
